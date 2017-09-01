@@ -7,6 +7,7 @@ import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
@@ -39,7 +40,6 @@ public class CodeUtils {
     public static final int RESULT_FAILED = 2;
 
     public static final String LAYOUT_ID = "layout_id";
-
 
 
     /**
@@ -202,24 +202,33 @@ public class CodeUtils {
         captureFragment.setArguments(bundle);
     }
 
+
     /**
      *  手电筒（闪关灯）
      * @param isEnable
      */
     public static void isLightEnable(boolean isEnable) {
         if (isEnable) {
-            Camera camera = CameraManager.get().getCamera();
+                Camera camera = CameraManager.get().getCamera();//获取已打开的camera对象
             if (camera != null) {
-                Camera.Parameters parameter = camera.getParameters();
-                parameter.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-                camera.setParameters(parameter);
+                try {
+                    Camera.Parameters parameter = camera.getParameters();
+                    parameter.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                    camera.setParameters(parameter);
+                }catch (Exception e){
+                    Log.d("CodeUtils", "isLightEnable: "+e);
+                }
             }
         } else {
-            Camera camera = CameraManager.get().getCamera();
+            Camera camera = CameraManager.get().getCamera();//获取已打开的camera对象
             if (camera != null) {
-                Camera.Parameters parameter = camera.getParameters();
-                parameter.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-                camera.setParameters(parameter);
+                try {
+                    Camera.Parameters parameter = camera.getParameters();
+                    parameter.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                    camera.setParameters(parameter);
+                }catch (Exception e){
+                    Log.d("CodeUtils", "isLightEnable: "+e);
+                }
             }
         }
     }

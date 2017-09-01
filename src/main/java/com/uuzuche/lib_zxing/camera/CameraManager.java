@@ -23,6 +23,7 @@ import android.graphics.Rect;
 import android.hardware.Camera;
 import android.os.Build;
 import android.os.Handler;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 import java.io.IOException;
@@ -323,6 +324,10 @@ public final class CameraManager {
         return context;
     }
 
+    /**
+     * 获取Camera.open()对象
+     * @return
+     */
     public Camera getCamera() {
         return camera;
     }

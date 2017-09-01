@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 final class CameraConfigurationManager {
@@ -89,6 +90,16 @@ final class CameraConfigurationManager {
         //modify here
         camera.setDisplayOrientation(90);
         camera.setParameters(parameters);
+
+        /**
+         * 查看手机预览支持的尺寸
+         */
+        List<Camera.Size> previewSizes = camera.getParameters().getSupportedPreviewSizes();
+        for (int i = 0; i < previewSizes.size(); i++) {
+            Camera.Size psize = previewSizes.get(i);
+            Log.i("8888" + "initCamera", "PreviewSize,width: " + psize.width + " height: " + psize.height);
+        }
+
     }
 
     Point getCameraResolution() {
