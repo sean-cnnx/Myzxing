@@ -2,7 +2,6 @@ package com.uuzuche.lib_zxing.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.os.Bundle;
@@ -25,7 +24,6 @@ import com.uuzuche.lib_zxing.camera.CameraManager;
 import com.uuzuche.lib_zxing.decoding.DecodeFormatManager;
 
 import java.util.Hashtable;
-import java.util.Objects;
 import java.util.Vector;
 
 /**
@@ -216,7 +214,7 @@ public class CodeUtils {
                     parameter.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
                     camera.setParameters(parameter);
                 }catch (Exception e){
-                    Log.d("CodeUtils", "isLightEnable: "+e);
+                    Log.d("CodeUtils", "isLightEnable:手电筒开启异常 "+e);
                 }
             }
         } else {
@@ -227,7 +225,7 @@ public class CodeUtils {
                     parameter.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
                     camera.setParameters(parameter);
                 }catch (Exception e){
-                    Log.d("CodeUtils", "isLightEnable: "+e);
+                    Log.d("CodeUtils", "isLightEnable:手电筒关闭异常 "+e);
                 }
             }
         }

@@ -41,7 +41,8 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
     private InactivityTimer inactivityTimer;
     private MediaPlayer mediaPlayer;
     private boolean playBeep;
-    private boolean isOpen = false; //控制beep声音
+    private boolean isSound = false; //控制beep声音
+    private boolean isVibrate = false; //控制beep声音
     private static final float BEEP_VOLUME = 1f;
     private boolean vibrate;
     private SurfaceView surfaceView;
@@ -106,10 +107,12 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
         if (audioService.getRingerMode() != AudioManager.RINGER_MODE_NORMAL) {
             playBeep = false;
         }
-        if (isOpen){
+        if (isSound){
             initBeepSound();//扫描声音
         }
-        vibrate = true;
+        vibrate = isVibrate;//扫描振动
+
+
     }
 
     @Override
@@ -214,10 +217,10 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
 
     /**
      * 设置扫描声音
-     * @param isOpen
+     * @param isSound
      */
-    public void setBeepSound(boolean isOpen){
-       this.isOpen = isOpen;
+    public void setBeepSound(boolean isSound){
+       this.isSound = isSound;
     }
 
     /**
@@ -248,6 +251,14 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
         }
     }
 
+    /**
+     * 设置扫描振动
+     * @param isVibrate
+     */
+    public void setVibrate(boolean isVibrate){
+        this.isVibrate = isVibrate;
+    }
+
     private static final long VIBRATE_DURATION = 200L; //振动持续时间
 
     /**
@@ -257,6 +268,7 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
         if (playBeep && mediaPlayer != null) {
             mediaPlayer.start();
         }
+
         if (vibrate) {
             Vibrator vibrator = (Vibrator) getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
             vibrator.vibrate(VIBRATE_DURATION);
@@ -304,5 +316,12 @@ public class CaptureFragment extends Fragment implements SurfaceHolder.Callback 
          */
         void callBack(Exception e);
     }
+
+    /*public void restartCamera() {
+        if (handler != null) {
+            //restartPreviewAndDecode 这个方法是私有的，设置成
+             handler.restartPreviewAndDecode();
+        }
+    }*/
 
 }
